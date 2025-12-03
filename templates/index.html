@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Machine Learning Deployment</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: #7f8c8d;
+        font-weight: 300;
+      }
+
+      .prediction-box {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .input-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border 0.3s;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      .result {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border-left: 4px solid #3498db;
+      }
+
+      .result h3 {
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .result-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #27ae60;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 2rem;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Machine Learning Predictor</h1>
+        <p class="subtitle">Masukkan data untuk mendapatkan prediksi dari model ML</p>
+      </header>
+
+      <div class="prediction-box">
+        <form method="POST" action="/predict">
+          <div class="input-group">
+            <label for="input-data">Masukkan Data</label>
+            <input type="text" name="title" id="input-data" placeholder="Ketik data yang akan diprediksi di sini..." />
+          </div>
+          <button id="input-button" type="submit">Prediksi</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+          <h3>Hasil Prediksi:</h3>
+          <div class="result-value" id="prediction-result">{{ prediction }}</div>
+          <p><strong>Data yang dimasukkan:</strong> {{ original }}</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <footer>
+        <p>© 2023 Machine Learning Deployment. All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
+  <script>
+    document.getElementById("input-button").addEventListener("click", function (event) {
+      const input = document.getElementById("input-data").value.trim();
+
+      if (input === "") {
+        event.preventDefault();
+        alert("Silakan masukkan data terlebih dahulu sebelum melakukan prediksi.");
+      }
+    });
+  </script>
+</html>
